@@ -1,0 +1,42 @@
+.container {
+    margin:0 auto;
+    max-width:980px;
+    border: #ccc 1px solid;
+}
+
+.container:before,
+.container:after {
+  content: "";
+  display: table;
+}
+.container:after {
+  clear: both;
+}
+.container {
+  clear: both;
+  *zoom: 1;
+}
+.container h1 {
+    padding: 0 1rem;
+}
+
+.container .grid {
+    width:46%;
+    box-sizing: border-box;
+    border: #333 1px solid;
+    float:left;
+    margin:0 2%;
+}
+
+.container .grid .box {
+    margin: .7rem;
+}
+
+@media(max-width:767px) {
+    .container .grid {
+        width:100%;
+        margin:0;
+    }
+}
+
+
