@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Hangman</title>
+  </head>
+  <body>
+    <span>Peter Fu</span>
+    <h1>Hangman</h1>
+    <p>Your answer is <span id="answer"></span></p>
+    <script>
+      var word = pickWord();
+      var answerArray = setupAnswerArray(word);
+      var remainingLetters = word.length;
+
+      while (remainingLetters > 0) {
+        showPlayerProgress(answerArray);
+        var guess = getGuess();
+        if (guess === null) {
+          break;
+        } else if (guess.length !== 1) {
+          alert("Please enter a single letter.");
+        } else {
+          var correctGuesses = updateGameState(guess, word, answerArray);
+          remainingLetters -= correctGuesses;
+        }
+      }
+      showAnswerAndCongratulatePlayer(answerArray);
+      document.getElementById("answer").innerHTML = word;
+
+      // Return a random word
+      function pickWord() {
+        var words = [
+          "javascript",
+          "monkey",
+          "amazing",
+          "pancake"
+        ];
+        return words[Math.floor(Math.random()*words.length)];
+      }
+      // Return the answer array
+      function setupAnswerArray(word) {
+        var answerArray = [];
+        for (var i=0; i<word.length; i++){
+           answerArray[i] = "_";
+        }
+        console.log('answerArray',answerArray);
+        return answerArray;
+      }
+      // User alert to show the player their progress
+      function showPlayerProgress(answerArray) {
+        alert(answerArray.join(" "));
+      }
+      // Use prompt to get a guess
+      function getGuess() {
+        var guess = prompt("Guess a letter, or click Cancel to stop playing.");
+        console.log('guess',guess);
+        return guess;
+      }
+      // Update answerArray and return a number showing 
+      // how many times the guess appears in the word 
+      // so remainingLetters can be updated
+      function updateGameState(guess, word, answerArray) {
+        var matchCount = 0;
+        for (var j=0; j<word.length; j++) {
+            if (word[j] === guess) {
+              answerArray[j] = guess;
+              matchCount++;
+            }
+          }
+          console.log('answerArray',answerArray);
+          console.log('matchCount',matchCount);
+          return matchCount;
+      }
+      // Use alert to show the answer and congratulate the player
+      function showAnswerAndCongratulatePlayer(answerArray) {
+        alert(answerArray.join(" "));
+        alert("Good job! The answer was " + word);
+      }
+    </script>
+  </body>
+</html>
